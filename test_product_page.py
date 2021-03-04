@@ -19,6 +19,7 @@ same_link = "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207"
                                   pytest.param("http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer7", marks=pytest.mark.xfail),
                                   "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer8",
                                   "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer9"])
+@pytest.mark.need_review
 def test_guest_can_add_product_to_basket(browser, link):
     page = ProductPage(browser, link)
     page.open()
@@ -35,7 +36,7 @@ def test_guest_should_see_login_link_on_product_page(browser):
     # Проверяем, есть ли ссылка на страницу входа
     page.should_be_login_link()
 
-
+@pytest.mark.need_review
 def test_guest_can_go_to_login_page_from_product_page(browser):
     page = ProductPage(browser, same_link)
     page.open()
@@ -44,7 +45,7 @@ def test_guest_can_go_to_login_page_from_product_page(browser):
     login_page = LoginPage(browser, browser.current_url)
     login_page.should_be_login_page()
 
-
+@pytest.mark.xfail
 def test_guest_cant_see_success_message_after_adding_product_to_basket(browser): 
     # Открываем страницу товара 
     page = ProductPage(browser, same_link)
@@ -63,7 +64,7 @@ def test_guest_cant_see_success_message(browser):
     # Проверяем, что нет сообщения об успехе с помощью is_not_element_present
     assert page.is_not_element_present(*ProductPageLocators.SUCCESS_ADD_ALERT), 'Незарегистрированный пользователь не должен видеть сообщение о добавлении товара в корзину при открытии страницы'
 
-
+@pytest.mark.xfail
 def test_message_disappeared_after_adding_product_to_basket(browser): 
     # Открываем страницу товара
     page = ProductPage(browser, same_link)
@@ -74,6 +75,7 @@ def test_message_disappeared_after_adding_product_to_basket(browser):
     # Проверяем, что нет сообщения об успехе с помощью is_disappeared
     assert page.is_disappeared(*ProductPageLocators.SUCCESS_ADD_ALERT), "Сообщение о добавлении товара в корзину должно было исчезнуть, но этого не произошло"
 
+@pytest.mark.need_review
 def test_guest_cant_see_product_in_basket_opened_from_product_page(browser):
     # Гость открывает страницу товара
     page = ProductPage(browser, same_link)
@@ -99,6 +101,7 @@ class TestUserAddToBasketFromProductPage():
         page.register_new_user(email, password)
         page.should_be_authorized_user()
 
+    @pytest.mark.need_review
     def test_user_can_add_product_to_basket(self, browser):
         page = ProductPage(browser, same_link)
         page.open()
