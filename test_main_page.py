@@ -3,6 +3,7 @@
 import pytest
 from pages.main_page import MainPage
 from pages.login_page import LoginPage
+from pages.basket_page import BasketPage
 
 link = "http://selenium1py.pythonanywhere.com/"
 
